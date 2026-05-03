@@ -19,14 +19,14 @@ TEFAS'taki **Menkul Kıymet Yatırım Fonları**nın gerçek içeriğini KAP Por
 3. SQL Editor'a aşağıyı yapıştırıp çalıştır:
 
 ```sql
-create table funds (
+create table if not exists funds (
   code text primary key,
   title text,
   type text,
   updated_at timestamptz default now()
 );
 
-create table pdr_snapshots (
+create table if not exists pdr_snapshots (
   id bigserial primary key,
   fund_code text references funds(code),
   period date,
@@ -36,7 +36,7 @@ create table pdr_snapshots (
   unique(fund_code, period)
 );
 
-create table watchlist (
+create table if not exists watchlist (
   chat_id bigint,
   fund_code text,
   created_at timestamptz default now(),
